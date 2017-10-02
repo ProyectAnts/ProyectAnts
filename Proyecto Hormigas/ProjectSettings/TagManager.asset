@@ -9,6 +9,7 @@ TagManager:
   - AntWarrior
   - AntArcher
   - AntMaster
+  - Grasshopper
   layers:
   - Default
   - TransparentFX
