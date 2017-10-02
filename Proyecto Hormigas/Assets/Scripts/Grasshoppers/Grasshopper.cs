@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Grasshopper : MonoBehaviour
+public class Grasshopper : MonoBehaviour, IEnemies
 {
     public float life = 100;
     Slider lifeSlider;
@@ -24,7 +24,7 @@ public class Grasshopper : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        mTransform.position += new Vector3(0.4f, 0, 0);
+        //mTransform.position += new Vector3(0.4f, 0, 0);
         lifeSlider.value = life;
 
 		if(life <= 0)
@@ -34,4 +34,9 @@ public class Grasshopper : MonoBehaviour
             mBody.velocity = new Vector3(0, 0, 0);
         }
 	}
+
+    public void Destroy(float _damage)
+    {
+        life -= _damage;
+    }
 }
