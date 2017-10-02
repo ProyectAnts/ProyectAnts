@@ -5,18 +5,26 @@ using UnityEngine;
 public class Bow : MonoBehaviour {
 
     Transform mBow;
-    Transform mEnemy;
+    Transform[] enemyTransform;
+    List<GameObject> targets;
     bool inRange = false;
     float coolDown = 0;
     float minRange = 20, maxRange = 300, minMagnitude = 350, maxMagnitude = 725;
 
-    AudioSource shotBow;
+    AudioSource shotSound;
 
     void Start ()
     {
         mBow = GameObject.Find("Bow").GetComponent<Transform>();
-        mEnemy = GameObject.Find("Grasshopper").GetComponent<Transform>();
-        shotBow = GetComponent<AudioSource>();
+        shotSound = GetComponent<AudioSource>();
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Grasshopper");
+        if(enemies != null)
+        {
+            foreach(GameObject enemy in enemies)
+            {
+                targets.Add(enemy);
+            }
+        }
 	}
 	
 	void Update ()
@@ -26,7 +34,7 @@ public class Bow : MonoBehaviour {
 
     public void ShootCondition()
     {
-        Vector3 heading = mEnemy.position - mBow.position;// Gets a vector that points from the player's position to the target's.
+        Vector3 heading = enemyTransform.position - mBow.position;// Gets a vector that points from the player's position to the target's.
 
         if (heading.sqrMagnitude < maxRange && heading.sqrMagnitude > minRange)
         {
@@ -47,7 +55,7 @@ public class Bow : MonoBehaviour {
 
         if (arrow != null)
         {
-            Vector3 heading = mEnemy.position - mBow.position;
+            Vector3 heading = enemyTransform.position - mBow.position;
             float distance = heading.magnitude;
             Vector3 direction = heading / distance; // This is now the normalized direction.
             Vector3 par = new Vector3(0, 0.4f, 0);
@@ -60,7 +68,7 @@ public class Bow : MonoBehaviour {
 
             if (inRange == true && coolDown >= 2 && GameObject.Find("Grasshopper").activeInHierarchy == true)
             {
-                shotBow.Play();
+                shotSound.Play();
                 arrow.transform.position = mBow.position;
                 arrow.transform.rotation = Quaternion.identity;
                 arrow.SetActive(true);
