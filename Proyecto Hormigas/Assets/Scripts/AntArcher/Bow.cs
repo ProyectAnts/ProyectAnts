@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bow : MonoBehaviour {
-/*
+
     Transform mBow;
     Transform[] enemyTransform;
     List<GameObject> targets;
@@ -82,5 +82,5 @@ public class Bow : MonoBehaviour {
                 coolDown = 0;
             }
         }
-    }*/
+    }
 }
