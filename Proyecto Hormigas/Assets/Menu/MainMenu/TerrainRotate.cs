@@ -16,6 +16,6 @@ public class TerrainRotate : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        mTransform.Rotate(new Vector3(0, 0.5f, 0));
+        mTransform.Rotate(new Vector3(0, 0.1f, 0));
 	}
 }

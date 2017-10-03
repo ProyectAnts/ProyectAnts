@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class SimpleTextureDrawing : MonoBehaviour 
+/*public class SimpleTextureDrawing : MonoBehaviour 
 {
 	public Material aMaterial;
 	public RenderTexture[] aTextures;
@@ -13,4 +13,4 @@ public class SimpleTextureDrawing : MonoBehaviour
 		Graphics.DrawTexture(new Rect(Screen.width - 300, 302, 300, 300), aTextures[1], aMaterial);
 	}
 }
-
+*/
