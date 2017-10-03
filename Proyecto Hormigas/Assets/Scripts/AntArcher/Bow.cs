@@ -6,38 +6,43 @@ public class Bow : MonoBehaviour
 {
     string enemyTag = "Grasshopper";
     Transform mTransform;
-    Transform enemyTransform;
     bool inRange = false;
     float coolDown = 0;
     float minRange = 20, maxRange = 300, minMagnitude = 350, maxMagnitude = 725;
 
     AudioSource shotSound;
 
+    GameObject enemy;
+    Transform enemyTransform;
+
     void Start ()
     {
         mTransform = GameObject.Find("Bow").GetComponent<Transform>();
         shotSound = GetComponent<AudioSource>();
-        enemyTransform = FindClosestEnemy().transform;
+        GameObject[] enemies;
+        enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+        enemy = FindClosestEnemy();
+        enemyTransform = enemy.transform;
     }
 	
 	void Update ()
     {
-        enemyTransform = FindClosestEnemy().transform;
-        if(enemyTransform != null)
+        if (enemy.GetComponent<Grasshopper>().life <= 0 && enemy != null)
         {
-            Transform actualEnemy = enemyTransform;
-            ShootCondition();
+            enemy = FindClosestEnemy();
+            enemyTransform = enemy.transform;
         }
-	}
+        ShootCondition(enemyTransform);
+    }
 
-    public void ShootCondition()
+    public void ShootCondition(Transform enemyTransform)
     {
         Vector3 heading = enemyTransform.position - mTransform.position;// Gets a vector that points from the player's position to the target's.
 
         if (heading.sqrMagnitude < maxRange && heading.sqrMagnitude > minRange)
         {
             // Target is within range.
-            BowShoot();
+            BowShoot(enemyTransform);
             inRange = true;
             coolDown += Time.deltaTime;
         }
@@ -47,7 +52,7 @@ public class Bow : MonoBehaviour
         }
     }
 
-    public void BowShoot()
+    public void BowShoot(Transform enemyTransform)
     {
         GameObject arrow = ArrowPool.SharedInstance.GetArrow();
 
@@ -64,7 +69,7 @@ public class Bow : MonoBehaviour
 
             float magnitude = m * r + b;
 
-            if (inRange == true && coolDown >= 2 && GameObject.Find("Grasshopper").activeInHierarchy == true)
+            if (inRange == true && coolDown >= 2 && enemy.activeInHierarchy == true)
             {
                 shotSound.Play();
                 arrow.transform.position = mTransform.position;
