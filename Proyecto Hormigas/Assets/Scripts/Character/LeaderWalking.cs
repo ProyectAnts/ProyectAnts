@@ -46,6 +46,7 @@ public class LeaderWalking : MonoBehaviour {
     }
     public void Rotation()
     {
+        
         /// Rotacion en y
         Vector3 rotationDirectionY = mTransform.up; // Direction assigned up using character as the reference point
         float rotationSenseY = Input.GetAxis("Mouse X"); // Rotation sense assigned using the mouse as an input
@@ -55,7 +56,8 @@ public class LeaderWalking : MonoBehaviour {
         Vector3 rotationVelocityTimeY = rotationVelocityY * Time.deltaTime; // Rotation is evaluated through time
 
         mTransform.eulerAngles += rotationVelocityTimeY; // Rotation is applied to the propertie transform
-
+        
+        /*
         /// Rotacion en x
         Vector3 rotationDirectionX = mTransform.right; // Direction assigned up using character as the reference point
         float rotationSenseX = Input.GetAxis("Mouse Y"); // Rotation sense assigned using the mouse as an input
@@ -65,5 +67,6 @@ public class LeaderWalking : MonoBehaviour {
         Vector3 rotationVelocityTimeX = rotationVelocityX * Time.deltaTime; // Rotation is evaluated through time
 
         mTransform.eulerAngles += rotationVelocityTimeX; // Rotation is applied to the propertie transform
+        */
     }
 }
